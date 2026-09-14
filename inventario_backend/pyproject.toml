@@ -1,0 +1,26 @@
+[project]
+name = "inventario-backend"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "LuanSoaresMoreira",email = "luan.lv1@hotmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard] (>=0.141.1,<0.142.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "ruff (>=0.16.7,<0.17.0)",
+    "typos (>=1.50.1,<2.0.0)",
+    "httpx2 (>=2.13.0,<3.0.0)"
+]

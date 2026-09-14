@@ -3,6 +3,16 @@
   "project": "inventario-eletronicos-institucionais",
   "default_mode": "recommend_only",
   "max_parallel_agents": 2,
+  "technology_stack": {
+    "frontend": {
+      "language": "JavaScript_or_TypeScript",
+      "framework": "React"
+    },
+    "backend": {
+      "language": "Python",
+      "framework": "FastAPI"
+    }
+  },
   "handoff_schema": "agents/schemas/handoff.schema.json",
   "global_forbidden_actions": [
     "expose_or_store_secrets",
@@ -19,6 +29,7 @@
     "change_roles_or_permissions",
     "delete_or_export_institutional_data",
     "add_paid_service_or_dependency",
+    "change_programming_language_or_framework",
     "rotate_or_access_production_secrets"
   ],
   "agents": [
@@ -64,9 +75,9 @@
       "depends_on": ["architecture_security"],
       "allowed_capabilities": [
         "read_repository",
-        "write_backend_code",
+        "write_python_fastapi_backend_code",
         "write_migrations",
-        "write_backend_tests",
+        "write_python_backend_tests",
         "use_local_mock_services"
       ],
       "forbidden_actions": [
@@ -83,8 +94,8 @@
       "depends_on": ["architecture_security"],
       "allowed_capabilities": [
         "read_repository",
-        "write_frontend_code",
-        "write_frontend_tests",
+        "write_react_frontend_code",
+        "write_react_frontend_tests",
         "run_local_accessibility_checks",
         "use_mock_api"
       ],
@@ -138,4 +149,3 @@
     }
   ]
 }
-

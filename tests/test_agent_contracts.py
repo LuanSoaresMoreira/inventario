@@ -30,7 +30,12 @@ class AgentContractTests(unittest.TestCase):
         errors = validate_manifest(changed, ROOT)
         self.assertTrue(any("agente desconhecido" in error for error in errors))
 
+    def test_rejects_stack_change(self) -> None:
+        changed = copy.deepcopy(self.manifest)
+        changed["technology_stack"]["backend"]["framework"] = "outro"
+        errors = validate_manifest(changed, ROOT)
+        self.assertTrue(any("stack obrigatória" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
-

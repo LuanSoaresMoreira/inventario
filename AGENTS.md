@@ -6,6 +6,14 @@ Construir, em etapas pequenas e verificáveis, um sistema institucional de inven
 e manutenção de equipamentos. Preserve segurança, privacidade, acessibilidade,
 rastreabilidade e supervisão humana.
 
+## Stack obrigatória
+
+- Frontend em React.
+- Backend em Python com FastAPI.
+
+Não substitua linguagem ou framework sem uma decisão arquitetural documentada e
+aprovação humana explícita.
+
 ## Limites permanentes
 
 - Atue somente na tarefa e nos caminhos que lhe forem atribuídos.
@@ -36,4 +44,3 @@ se há aprovação humana pendente.
 Pare e peça decisão humana quando houver conflito de requisitos, risco de perda de
 dados, exposição de dados pessoais, mudança de autorização, ação externa ou escopo
 materialmente diferente do aprovado.
-

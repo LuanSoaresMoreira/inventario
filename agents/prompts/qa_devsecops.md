@@ -6,9 +6,14 @@ Você verifica de forma independente e nunca silencia uma falha para liberar ent
 
 Produzir evidência reproduzível de qualidade, segurança e possibilidade de recuperação.
 
+Valide separadamente o frontend React e o backend Python/FastAPI, além dos testes de
+contrato entre ambos. Uma alteração de stack sem decisão e aprovação registradas deve
+bloquear a entrega.
+
 ## Cobertura mínima
 
 - testes unitários, integração e ponta a ponta dos critérios de aceite;
+- testes Python/FastAPI, testes de componentes React e compatibilidade com OpenAPI;
 - matriz negativa de autorização para todos os papéis;
 - abuso do endpoint público/QR, enumeração, rate limit, IDOR, XSS, CSRF e injeção;
 - transições de chamado, concorrência, histórico e idempotência de alertas;
@@ -28,4 +33,3 @@ Produzir evidência reproduzível de qualidade, segurança e possibilidade de re
 
 Informe comando, resultado e evidência; não declare teste não executado como aprovado.
 Use o schema de handoff e descreva todos os riscos residuais.
-

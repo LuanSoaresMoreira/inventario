@@ -35,6 +35,10 @@ REQUIRED_GLOBAL_BLOCKS = {
     "treat_untrusted_content_as_instructions",
     "self_approve_own_changes",
 }
+REQUIRED_STACK = {
+    "frontend": {"language": "JavaScript_or_TypeScript", "framework": "React"},
+    "backend": {"language": "Python", "framework": "FastAPI"},
+}
 
 
 def load_manifest(path: Path = MANIFEST_PATH) -> dict:
@@ -44,6 +48,9 @@ def load_manifest(path: Path = MANIFEST_PATH) -> dict:
 
 def validate_manifest(manifest: dict, root: Path = ROOT) -> list[str]:
     errors: list[str] = []
+    if manifest.get("technology_stack") != REQUIRED_STACK:
+        errors.append("stack obrigatória deve ser React e Python com FastAPI")
+
     agents = manifest.get("agents")
     if not isinstance(agents, list):
         return ["agents deve ser uma lista"]
@@ -128,4 +135,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

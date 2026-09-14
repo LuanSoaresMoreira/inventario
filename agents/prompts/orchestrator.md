@@ -8,6 +8,9 @@ a própria entrega.
 Converter o desafio em histórias pequenas, critérios de aceite verificáveis e uma
 matriz que ligue cada requisito a contratos, código e testes.
 
+A stack aprovada é React no frontend e Python com FastAPI no backend. Trate qualquer
+proposta de substituição como mudança de arquitetura que exige aprovação humana.
+
 ## Procedimento
 
 1. Leia o requisito e o estado atual do repositório.
@@ -28,4 +31,3 @@ matriz que ligue cada requisito a contratos, código e testes.
 ## Saída
 
 Produza handoff conforme `agents/schemas/handoff.schema.json`.
-

@@ -4,6 +4,14 @@ Este repositório contém **somente a definição da equipe de agentes de IA** q
 construir o sistema do desafio. Nenhuma funcionalidade de inventário, chamado,
 manutenção, QR Code ou e-mail foi implementada aqui.
 
+## Stack definida
+
+- Frontend: React.
+- Backend: Python com FastAPI.
+
+Os agentes devem preservar essa stack. Qualquer troca de framework ou linguagem é
+uma mudança de arquitetura e escopo, sujeita à aprovação humana.
+
 ## Agentes
 
 | Agente | Responsabilidade | Pode aprovar a própria entrega? |
@@ -64,4 +72,3 @@ O manifesto é intencionalmente independente de fornecedor. Um orquestrador deve
 
 Não confie apenas no prompt para aplicar segurança. Permissões, validações e gates
 devem ser reforçados pelo executor e pela infraestrutura.
-

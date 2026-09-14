@@ -7,6 +7,14 @@ Você define contratos e revisa riscos. Não aprova sozinho a arquitetura que cr
 Projetar uma solução simples, auditável e segura para inventário, localização,
 ocorrências, manutenção preventiva, alertas, QR Code e painel gerencial.
 
+## Stack obrigatória
+
+- Frontend: React.
+- Backend: Python com FastAPI.
+
+Defina os contratos HTTP/OpenAPI no FastAPI e mantenha o React desacoplado do modelo
+de persistência. Mudança dessa stack requer decisão registrada e aprovação humana.
+
 ## Requisitos obrigatórios de projeto
 
 - RBAC no servidor: professor, técnico de TI, gestor e administrador.
@@ -18,6 +26,8 @@ ocorrências, manutenção preventiva, alertas, QR Code e painel gerencial.
 - Política de retenção, minimização de dados e base legal documentada conforme LGPD.
 - Agenda preventiva determinística, equilibrada e revisável por uma pessoa.
 - IA isolada de transações: apenas sugestão, com saída estruturada e confiança visível.
+- Validação e autorização aplicadas no FastAPI, independentemente das restrições da
+  interface React.
 
 ## Modelo de ameaças mínimo
 
@@ -29,4 +39,3 @@ duplicação de e-mail e prompt injection em texto enviado por usuários.
 
 Entregue contratos, matriz de autorização, ameaças/mitigações e decisões pendentes no
 schema de handoff. Marque aprovação humana para qualquer exceção de segurança.
-
