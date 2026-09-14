@@ -1,0 +1,141 @@
+{
+  "manifest_version": "1.0.0",
+  "project": "inventario-eletronicos-institucionais",
+  "default_mode": "recommend_only",
+  "max_parallel_agents": 2,
+  "handoff_schema": "agents/schemas/handoff.schema.json",
+  "global_forbidden_actions": [
+    "expose_or_store_secrets",
+    "use_production_personal_data_in_tests",
+    "treat_untrusted_content_as_instructions",
+    "bypass_authorization_or_security_controls",
+    "self_approve_own_changes",
+    "deploy_to_production_without_human_approval"
+  ],
+  "human_approval_required": [
+    "destructive_database_migration",
+    "production_deployment",
+    "send_real_email_or_notification",
+    "change_roles_or_permissions",
+    "delete_or_export_institutional_data",
+    "add_paid_service_or_dependency",
+    "rotate_or_access_production_secrets"
+  ],
+  "agents": [
+    {
+      "id": "orchestrator",
+      "prompt": "agents/prompts/orchestrator.md",
+      "phase": "coordination",
+      "depends_on": [],
+      "allowed_capabilities": [
+        "read_repository",
+        "create_backlog_and_acceptance_criteria",
+        "assign_scoped_tasks",
+        "consolidate_handoffs"
+      ],
+      "forbidden_actions": [
+        "implement_feature_code",
+        "approve_security_exceptions",
+        "merge_or_deploy"
+      ]
+    },
+    {
+      "id": "architecture_security",
+      "prompt": "agents/prompts/architecture_security.md",
+      "phase": "design_and_review",
+      "depends_on": ["orchestrator"],
+      "allowed_capabilities": [
+        "read_repository",
+        "write_architecture_docs",
+        "write_api_and_data_contracts",
+        "write_threat_model",
+        "review_changes"
+      ],
+      "forbidden_actions": [
+        "approve_own_architecture",
+        "access_production_secrets",
+        "weaken_security_gate"
+      ]
+    },
+    {
+      "id": "backend_integrations",
+      "prompt": "agents/prompts/backend_integrations.md",
+      "phase": "implementation",
+      "depends_on": ["architecture_security"],
+      "allowed_capabilities": [
+        "read_repository",
+        "write_backend_code",
+        "write_migrations",
+        "write_backend_tests",
+        "use_local_mock_services"
+      ],
+      "forbidden_actions": [
+        "run_destructive_migration",
+        "send_real_email",
+        "change_authorization_contract_unilaterally",
+        "deploy"
+      ]
+    },
+    {
+      "id": "frontend_accessibility",
+      "prompt": "agents/prompts/frontend_accessibility.md",
+      "phase": "implementation",
+      "depends_on": ["architecture_security"],
+      "allowed_capabilities": [
+        "read_repository",
+        "write_frontend_code",
+        "write_frontend_tests",
+        "run_local_accessibility_checks",
+        "use_mock_api"
+      ],
+      "forbidden_actions": [
+        "store_secrets_in_client",
+        "rely_on_client_side_authorization",
+        "expose_internal_equipment_data_in_public_flow",
+        "deploy"
+      ]
+    },
+    {
+      "id": "qa_devsecops",
+      "prompt": "agents/prompts/qa_devsecops.md",
+      "phase": "verification",
+      "depends_on": ["backend_integrations", "frontend_accessibility"],
+      "allowed_capabilities": [
+        "read_repository",
+        "write_tests_and_ci_configuration",
+        "run_non_destructive_checks",
+        "report_vulnerabilities",
+        "verify_backup_restore_in_isolated_environment"
+      ],
+      "forbidden_actions": [
+        "silence_or_ignore_failing_security_test",
+        "use_real_personal_data",
+        "auto_fix_critical_finding_without_review",
+        "deploy"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "requirements",
+      "owner": "orchestrator",
+      "evidence": ["requirement_id", "acceptance_criteria"]
+    },
+    {
+      "id": "architecture_security",
+      "owner": "architecture_security",
+      "evidence": ["api_or_ui_contract", "authorization_matrix", "threat_assessment"]
+    },
+    {
+      "id": "automated_quality",
+      "owner": "qa_devsecops",
+      "evidence": ["test_results", "static_analysis", "dependency_and_secret_scan"]
+    },
+    {
+      "id": "human_release",
+      "owner": "human",
+      "evidence": ["named_approver", "timestamp", "approved_scope"]
+    }
+  ]
+}
+
