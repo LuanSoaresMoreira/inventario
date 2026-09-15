@@ -1,0 +1,35 @@
+name: Validate specs
+
+on:
+  pull_request:
+    paths:
+      - "specs/**"
+      - "scripts/validate_specs.py"
+      - "tests/test_spec_contracts.py"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/validate-specs.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "specs/**"
+      - "scripts/validate_specs.py"
+      - "tests/test_spec_contracts.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate specs
+        run: python scripts/validate_specs.py
+      - name: Run contract tests
+        run: python -m unittest discover -s tests -v

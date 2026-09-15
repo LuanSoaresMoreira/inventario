@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/feature-spec.schema.json",
+  "title": "Metadados de uma especificação funcional",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "status",
+    "type",
+    "priority",
+    "requirement_ids",
+    "implementation_owners",
+    "approvers",
+    "depends_on",
+    "labels",
+    "github_issue",
+    "approval"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^SPEC-[0-9]{3}$"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 160},
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "approved", "in_progress", "implemented", "verified", "rejected", "superseded"]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["architecture", "feature", "quality", "future"]
+    },
+    "priority": {"type": "string", "enum": ["p0", "p1", "p2"]},
+    "requirement_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 80}
+    },
+    "implementation_owners": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"]
+      }
+    },
+    "approvers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 80}
+    },
+    "depends_on": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^SPEC-[0-9]{3}$"}
+    },
+    "labels": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 50}
+    },
+    "github_issue": {"type": ["integer", "null"], "minimum": 1},
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "approved_by", "approved_at", "evidence"],
+      "properties": {
+        "state": {"type": "string", "enum": ["pending", "approved", "rejected"]},
+        "approved_by": {"type": ["string", "null"], "minLength": 1},
+        "approved_at": {"type": ["string", "null"], "format": "date-time"},
+        "evidence": {"type": ["string", "null"], "minLength": 1}
+      }
+    }
+  }
+}

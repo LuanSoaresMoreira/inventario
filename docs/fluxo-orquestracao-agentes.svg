@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1500" viewBox="0 0 1600 1500" role="img" aria-labelledby="title description">
+  <title id="title">Fluxo de orquestração de agentes, issues e specs</title>
+  <desc id="description">Diagrama em três raias mostrando o fluxo desde a necessidade humana e criação da issue, passando pela spec, revisão, implementação paralela, testes e aprovação humana final.</desc>
+  <defs>
+    <linearGradient id="header" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102a43"/>
+      <stop offset="1" stop-color="#1769aa"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#102a43" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#52606d"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1769aa"/>
+    </marker>
+    <style>
+      .title { font: 700 38px Inter, Segoe UI, sans-serif; fill: #fff; }
+      .subtitle { font: 400 19px Inter, Segoe UI, sans-serif; fill: #d9eafd; }
+      .lane-title { font: 700 22px Inter, Segoe UI, sans-serif; fill: #102a43; }
+      .box-title { font: 700 19px Inter, Segoe UI, sans-serif; fill: #102a43; }
+      .box-copy { font: 400 15px Inter, Segoe UI, sans-serif; fill: #334e68; }
+      .pill { font: 700 12px Inter, Segoe UI, sans-serif; letter-spacing: .04em; }
+      .note { font: 600 14px Inter, Segoe UI, sans-serif; fill: #486581; }
+      .small { font: 400 13px Inter, Segoe UI, sans-serif; fill: #627d98; }
+      .step { font: 800 16px Inter, Segoe UI, sans-serif; fill: #fff; }
+      .connector { fill: none; stroke: #52606d; stroke-width: 3; marker-end: url(#arrow); }
+      .connector-blue { fill: none; stroke: #1769aa; stroke-width: 4; marker-end: url(#arrowBlue); }
+      .return { fill: none; stroke: #c05621; stroke-width: 3; stroke-dasharray: 9 7; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1500" fill="#f4f7fb"/>
+  <rect width="1600" height="142" fill="url(#header)"/>
+  <text x="70" y="63" class="title">Orquestração atual: issues + specs + agentes</text>
+  <text x="70" y="101" class="subtitle">Inventário institucional • fluxo governado, rastreável e com aprovação humana</text>
+
+  <rect x="55" y="170" width="450" height="1175" rx="22" fill="#fff8e7" stroke="#f0d477"/>
+  <rect x="575" y="170" width="450" height="1175" rx="22" fill="#eef6ff" stroke="#9cc7ed"/>
+  <rect x="1095" y="170" width="450" height="1175" rx="22" fill="#eefaf3" stroke="#9dd8b5"/>
+
+  <circle cx="92" cy="211" r="16" fill="#b7791f"/>
+  <text x="120" y="219" class="lane-title">Pessoa / GitHub</text>
+  <circle cx="612" cy="211" r="16" fill="#1769aa"/>
+  <text x="640" y="219" class="lane-title">Orquestração / Spec</text>
+  <circle cx="1132" cy="211" r="16" fill="#238653"/>
+  <text x="1160" y="219" class="lane-title">Implementação / Qualidade</text>
+
+  <!-- 1. Necessidade e issue -->
+  <rect x="85" y="270" width="390" height="126" rx="16" fill="#fff" stroke="#e0b44d" filter="url(#shadow)"/>
+  <circle cx="112" cy="298" r="17" fill="#b7791f"/><text x="107" y="304" class="step">1</text>
+  <text x="140" y="305" class="box-title">Necessidade vira issue</text>
+  <text x="110" y="338" class="box-copy"><tspan x="110" dy="0">Pessoa descreve objetivo, escopo,</tspan><tspan x="110" dy="22">fora de escopo e aceite.</tspan></text>
+  <rect x="110" y="365" width="104" height="22" rx="11" fill="#ebe4f2"/><text x="122" y="381" class="pill" fill="#68478d">needs-spec</text>
+
+  <!-- 2. Orquestrador -->
+  <path d="M475 333 H605" class="connector-blue"/>
+  <rect x="605" y="270" width="390" height="148" rx="16" fill="#fff" stroke="#65a8dd" filter="url(#shadow)"/>
+  <circle cx="632" cy="298" r="17" fill="#1769aa"/><text x="627" y="304" class="step">2</text>
+  <text x="660" y="305" class="box-title">Orchestrator cria a spec</text>
+  <text x="630" y="338" class="box-copy"><tspan x="630">Converte requisito em contrato,</tspan><tspan x="630" dy="22">dependências e critérios verificáveis.</tspan></text>
+  <rect x="630" y="385" width="92" height="22" rx="11" fill="#d9eafd"/><text x="642" y="401" class="pill" fill="#1769aa">proposed</text>
+  <rect x="730" y="385" width="130" height="22" rx="11" fill="#fff0c2"/><text x="742" y="401" class="pill" fill="#8a5a00">needs-approval</text>
+
+  <!-- 3. Arquitetura -->
+  <path d="M800 418 V472" class="connector"/>
+  <rect x="605" y="472" width="390" height="145" rx="16" fill="#fff" stroke="#65a8dd" filter="url(#shadow)"/>
+  <circle cx="632" cy="500" r="17" fill="#1769aa"/><text x="627" y="506" class="step">3</text>
+  <text x="660" y="507" class="box-title">Architecture &amp; Security revisa</text>
+  <text x="630" y="540" class="box-copy"><tspan x="630">Define contratos, autorização, dados,</tspan><tspan x="630" dy="22">privacidade e ameaças.</tspan></text>
+  <text x="630" y="595" class="small">Se houver lacuna, a spec volta para ajuste.</text>
+
+  <!-- retorno -->
+  <path d="M605 548 H548 V344 H605" class="return"/>
+  <text x="485" y="455" class="note" transform="rotate(-90 485 455)">revisar</text>
+
+  <!-- 4. aprovação humana -->
+  <path d="M605 562 H475" class="connector-blue"/>
+  <rect x="85" y="480" width="390" height="165" rx="16" fill="#fff" stroke="#e0b44d" filter="url(#shadow)"/>
+  <circle cx="112" cy="508" r="17" fill="#b7791f"/><text x="107" y="514" class="step">4</text>
+  <text x="140" y="515" class="box-title">Pessoa aprova a spec</text>
+  <text x="110" y="548" class="box-copy"><tspan x="110">Aprovação identificável em PR ou issue.</tspan><tspan x="110" dy="22">O arquivo registra autor, data e evidência.</tspan></text>
+  <rect x="110" y="601" width="86" height="22" rx="11" fill="#d8f3e4"/><text x="122" y="617" class="pill" fill="#176b45">approved</text>
+  <rect x="204" y="601" width="170" height="22" rx="11" fill="#d8f3e4"/><text x="216" y="617" class="pill" fill="#176b45">ready-for-development</text>
+
+  <!-- 5. delegação -->
+  <path d="M475 624 H550 V704 H605" class="connector-blue"/>
+  <rect x="605" y="655" width="390" height="125" rx="16" fill="#fff" stroke="#65a8dd" filter="url(#shadow)"/>
+  <circle cx="632" cy="683" r="17" fill="#1769aa"/><text x="627" y="689" class="step">5</text>
+  <text x="660" y="690" class="box-title">Orchestrator delega</text>
+  <text x="630" y="723" class="box-copy"><tspan x="630">Define caminhos permitidos e tarefas.</tspan><tspan x="630" dy="22">Máximo atual: 2 agentes em paralelo.</tspan></text>
+
+  <!-- 6. Backend e frontend -->
+  <path d="M995 718 H1060 V694 H1125" class="connector-blue"/>
+  <path d="M1060 718 V824 H1125" class="connector-blue"/>
+  <rect x="1125" y="635" width="390" height="120" rx="16" fill="#fff" stroke="#62bd88" filter="url(#shadow)"/>
+  <circle cx="1152" cy="663" r="17" fill="#238653"/><text x="1147" y="669" class="step">6</text>
+  <text x="1180" y="670" class="box-title">Backend FastAPI</text>
+  <text x="1150" y="703" class="box-copy"><tspan x="1150">API, regras, persistência e testes.</tspan><tspan x="1150" dy="22">Sem mudar autorização sozinho.</tspan></text>
+
+  <rect x="1125" y="785" width="390" height="120" rx="16" fill="#fff" stroke="#62bd88" filter="url(#shadow)"/>
+  <circle cx="1152" cy="813" r="17" fill="#238653"/><text x="1147" y="819" class="step">6</text>
+  <text x="1180" y="820" class="box-title">Frontend React</text>
+  <text x="1150" y="853" class="box-copy"><tspan x="1150">Interface, integração e acessibilidade.</tspan><tspan x="1150" dy="22">Autorização continua no servidor.</tspan></text>
+
+  <!-- 7. QA -->
+  <path d="M1320 755 V935" class="connector"/>
+  <path d="M1320 905 V935" class="connector"/>
+  <rect x="1125" y="935" width="390" height="130" rx="16" fill="#fff" stroke="#62bd88" filter="url(#shadow)"/>
+  <circle cx="1152" cy="963" r="17" fill="#238653"/><text x="1147" y="969" class="step">7</text>
+  <text x="1180" y="970" class="box-title">QA / DevSecOps verifica</text>
+  <text x="1150" y="1003" class="box-copy"><tspan x="1150">Testes, análise estática, segurança</tspan><tspan x="1150" dy="22">e evidências dos critérios da spec.</tspan></text>
+
+  <!-- 8. revisão residual e handoff -->
+  <path d="M1125 1000 H995" class="connector-blue"/>
+  <rect x="605" y="925" width="390" height="150" rx="16" fill="#fff" stroke="#65a8dd" filter="url(#shadow)"/>
+  <circle cx="632" cy="953" r="17" fill="#1769aa"/><text x="627" y="959" class="step">8</text>
+  <text x="660" y="960" class="box-title">Revisão residual + handoff</text>
+  <text x="630" y="993" class="box-copy"><tspan x="630">Arquitetura revisa riscos; orquestrador</tspan><tspan x="630" dy="22">consolida evidências no schema obrigatório.</tspan></text>
+  <rect x="630" y="1040" width="188" height="22" rx="11" fill="#ebe4f2"/><text x="642" y="1056" class="pill" fill="#68478d">handoff.schema.json</text>
+
+  <!-- 9. PR -->
+  <path d="M800 1075 V1130" class="connector"/>
+  <rect x="605" y="1130" width="390" height="120" rx="16" fill="#fff" stroke="#65a8dd" filter="url(#shadow)"/>
+  <circle cx="632" cy="1158" r="17" fill="#1769aa"/><text x="627" y="1164" class="step">9</text>
+  <text x="660" y="1165" class="box-title">Pull Request referencia a issue</text>
+  <text x="630" y="1198" class="box-copy"><tspan x="630">Inclui spec, checks, riscos e</tspan><tspan x="630" dy="22">“Closes #N”. O CI valida contratos.</tspan></text>
+
+  <!-- 10. gate humano -->
+  <path d="M605 1190 H475" class="connector-blue"/>
+  <rect x="85" y="1118" width="390" height="145" rx="16" fill="#fff" stroke="#e0b44d" filter="url(#shadow)"/>
+  <circle cx="112" cy="1146" r="17" fill="#b7791f"/><text x="102" y="1152" class="step">10</text>
+  <text x="140" y="1153" class="box-title">Gate humano de release</text>
+  <text x="110" y="1186" class="box-copy"><tspan x="110">Pessoa revisa escopo e evidências.</tspan><tspan x="110" dy="22">Só então autoriza merge.</tspan></text>
+  <text x="110" y="1244" class="small">Deploy e efeitos externos exigem gate separado.</text>
+
+  <!-- 11. fechamento -->
+  <path d="M280 1263 V1292" class="connector"/>
+  <rect x="85" y="1292" width="910" height="70" rx="16" fill="#eaf8f0" stroke="#62bd88"/>
+  <circle cx="112" cy="1327" r="17" fill="#238653"/><text x="102" y="1333" class="step">11</text>
+  <text x="140" y="1321" class="box-title">Merge fecha a issue e a spec pode passar para verified</text>
+  <text x="140" y="1345" class="small">O fechamento representa evidência aceita; não autoriza automaticamente produção.</text>
+
+  <!-- automação atual -->
+  <rect x="1095" y="1105" width="450" height="257" rx="18" fill="#102a43"/>
+  <text x="1125" y="1143" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#fff">O que é automático hoje?</text>
+  <text x="1125" y="1180" font-family="Inter, Segoe UI, sans-serif" font-size="15" fill="#d9eafd"><tspan x="1125">✓ Validação estrutural das specs</tspan><tspan x="1125" dy="28">✓ Testes de contratos em Pull Requests</tspan><tspan x="1125" dy="28">✓ Fechamento por “Closes #N” após merge</tspan></text>
+  <line x1="1125" y1="1265" x2="1515" y2="1265" stroke="#486581"/>
+  <text x="1125" y="1295" font-family="Inter, Segoe UI, sans-serif" font-size="15" fill="#ffd59a"><tspan x="1125">Manual: invocar agentes, mudar labels, aprovar</tspan><tspan x="1125" dy="24">spec/PR, mergear, implantar e enviar mensagens.</tspan></text>
+
+  <!-- guardrails -->
+  <rect x="55" y="1390" width="1490" height="78" rx="18" fill="#fff0ee" stroke="#e99b90"/>
+  <text x="82" y="1422" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#9b2c2c">Guardrail permanente</text>
+  <text x="82" y="1450" font-family="Inter, Segoe UI, sans-serif" font-size="15" fill="#7b341e">Agentes não aprovam o próprio trabalho, não fazem merge/deploy e não alteram patrimônio, chamados, custos ou comunicações reais sem pessoa autorizada.</text>
+</svg>

@@ -1,0 +1,65 @@
+name: Nova especificação
+description: Registre uma necessidade que será detalhada e aprovada antes da implementação.
+title: "[SPEC] "
+labels:
+  - spec
+  - needs-spec
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A issue acompanha o trabalho. A spec versionada será o contrato canônico.
+        Não inclua segredos nem dados reais de alunos, professores ou funcionários.
+  - type: input
+    id: requirement
+    attributes:
+      label: Requisito de origem
+      description: Informe o requisito, edital ou decisão que originou a necessidade.
+      placeholder: DESAFIO1-R1
+    validations:
+      required: true
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objetivo
+      description: Explique o resultado esperado e quem se beneficia.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Escopo
+      description: Liste o que deve ser entregue.
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Fora de escopo
+      description: Liste explicitamente o que esta issue não autoriza.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceitação
+      description: Escreva resultados observáveis e testáveis.
+      placeholder: "- [ ] Dado ... quando ... então ..."
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: Segurança, privacidade e autorização
+      description: Registre dados tratados, papéis envolvidos e decisões humanas pendentes.
+    validations:
+      required: true
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Confirmações
+      options:
+        - label: Não incluí segredos ou dados pessoais reais.
+          required: true
+        - label: Entendo que abrir a issue não aprova a spec nem autoriza deploy.
+          required: true

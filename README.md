@@ -1,8 +1,9 @@
 # Equipe de agentes — Inventário institucional
 
-Este repositório contém **somente a definição da equipe de agentes de IA** que poderá
-construir o sistema do desafio. Nenhuma funcionalidade de inventário, chamado,
-manutenção, QR Code ou e-mail foi implementada aqui.
+Este repositório contém a base do sistema institucional de inventário e manutenção,
+além da definição da equipe de agentes de IA. A API e o frontend ainda estão em
+fase inicial; regras patrimoniais, autenticação e integrações reais não foram
+implementadas.
 
 ## Stack definida
 
@@ -47,17 +48,56 @@ Os agentes são descritos em `agents/prompts/`. O arquivo
 5. `architecture_security` revisa riscos residuais.
 6. uma pessoa autoriza merge, efeitos externos e implantação.
 
+## Specs e issues
+
+O backlog funcional fica em `specs/`. Cada spec proposta possui uma issue no GitHub,
+critérios de aceitação, dependências, riscos e aprovadores. O fluxo completo está em
+`specs/README.md`, com um diagrama em `docs/fluxo-orquestracao-agentes.svg`.
+Também há uma versão PNG pronta para visualização no mesmo diretório.
+
+Issues novas começam com `needs-spec`. Após a escrita da spec, usam
+`needs-approval`. Somente uma revisão humana registrada permite mudar o status para
+`approved` e aplicar `ready-for-development`.
+
+## Execução local
+
+O backend requer Python 3.11+ e o frontend requer Node.js 20.19+.
+
+### Backend
+
+```powershell
+cd inventario_backend
+poetry install
+poetry run uvicorn inventario_backend.main:app --reload
+```
+
+A API fica em `http://127.0.0.1:8000`, com documentação em `/docs` e saúde em
+`/api/health`.
+
+### Frontend
+
+Em outro terminal:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+O frontend fica em `http://127.0.0.1:5173` e usa o proxy do Vite para `/api`.
+
 ## Validação local
 
-Requer apenas Python 3.11+ e não acessa a rede:
+Os testes e o validador de agentes não acessam a rede:
 
 ```powershell
 python scripts/validate_agents.py
+python scripts/validate_specs.py
 python -m unittest discover -s tests -v
 ```
 
-O validador confirma a estrutura do manifesto, a existência dos prompts, a
-separação de funções, os gates humanos e os guardrails mínimos.
+Os validadores confirmam os contratos dos agentes e das specs, dependências,
+evidências de aprovação, separação de funções, gates humanos e guardrails mínimos.
 
 ## Como integrar futuramente
 
