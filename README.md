@@ -66,13 +66,18 @@ O backend requer Python 3.11+ e o frontend requer Node.js 20.19+.
 ### Backend
 
 ```powershell
+Copy-Item .env.example .env
+Copy-Item inventario_backend/.env.example inventario_backend/.env
+# Edite os arquivos .env da raiz e do backend com a mesma senha local.
+docker compose up -d postgres
 cd inventario_backend
 poetry install
 poetry run uvicorn inventario_backend.main:app --reload
 ```
 
 A API fica em `http://127.0.0.1:8000`, com documentação em `/docs` e saúde em
-`/api/health`.
+`/api/health`. Consulte `inventario_backend/README.md` para a configuração detalhada
+do PostgreSQL e o diagnóstico em `/api/health/database`.
 
 ### Frontend
 
