@@ -13,6 +13,19 @@ implementadas.
 Os agentes devem preservar essa stack. Qualquer troca de framework ou linguagem é
 uma mudança de arquitetura e escopo, sujeita à aprovação humana.
 
+## Softwares necessários para desenvolvimento
+
+Instale apenas os seguintes softwares na máquina de desenvolvimento:
+
+- **Git**, para clonar o repositório e acompanhar as alterações.
+- **Python 3.11 ou superior**, para executar o backend FastAPI.
+- **Poetry**, para criar o ambiente virtual e instalar as dependências Python
+  (`poetry install`).
+- **Node.js 20.19 ou superior**, que já inclui o **npm**, para instalar e executar
+  o frontend React/Vite.
+- **PostgreSQL 17**, para armazenar os dados localmente. A porta padrão é `5432`.
+- **Navegador moderno**, para acessar a interface React e a documentação da API.
+
 ## Agentes
 
 | Agente | Responsabilidade | Pode aprovar a própria entrega? |
@@ -63,21 +76,31 @@ Issues novas começam com `needs-spec`. Após a escrita da spec, usam
 
 O backend requer Python 3.11+ e o frontend requer Node.js 20.19+.
 
+### Preparar o PostgreSQL
+
+Depois de instalar o PostgreSQL, crie um usuário e um banco para o desenvolvimento
+local usando o `psql` ou o pgAdmin:
+
+```sql
+CREATE USER inventario_app WITH PASSWORD 'sua-senha-local';
+CREATE DATABASE inventario OWNER inventario_app;
+```
+
+Use essa mesma senha no arquivo `inventario_backend/.env`.
+
 ### Backend
 
 ```powershell
-Copy-Item .env.example .env
 Copy-Item inventario_backend/.env.example inventario_backend/.env
-# Edite os arquivos .env da raiz e do backend com a mesma senha local.
-docker compose up -d postgres
+# Edite o inventario_backend/.env com a senha do usuário local do PostgreSQL.
 cd inventario_backend
 poetry install
+poetry run alembic upgrade head
 poetry run uvicorn inventario_backend.main:app --reload
 ```
 
-A API fica em `http://127.0.0.1:8000`, com documentação em `/docs` e saúde em
-`/api/health`. Consulte `inventario_backend/README.md` para a configuração detalhada
-do PostgreSQL e o diagnóstico em `/api/health/database`.
+A API fica em `http://127.0.0.1:8000`, com documentação em `/docs`, saúde em
+`/api/health` e diagnóstico do banco em `/api/health/database`.
 
 ### Frontend
 
