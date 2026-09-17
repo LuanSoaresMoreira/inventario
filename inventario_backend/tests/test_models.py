@@ -18,7 +18,8 @@ def test_asset_tag_and_public_tokens_are_unique() -> None:
     occurrence_constraints = Base.metadata.tables["occurrences"].constraints
 
     assert any(
-        constraint.columns.keys() == ["asset_tag"] and constraint.__class__.__name__ == "UniqueConstraint"
+        constraint.columns.keys() == ["asset_tag"]
+        and constraint.__class__.__name__ == "UniqueConstraint"
         for constraint in equipment_constraints
     )
     assert any(

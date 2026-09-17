@@ -62,3 +62,15 @@ Os testes podem ser executados com:
 ```powershell
 poetry run pytest
 ```
+
+O teste de migração cria um cluster PostgreSQL temporário, aplica a migração,
+confere a proteção append-only e executa o rollback. Ele nunca usa o banco definido
+em `.env`. Se os binários não estiverem no `PATH`, defina `POSTGRES_BIN` apontando
+para a pasta `bin` da instalação local.
+
+Para regenerar o contrato OpenAPI versionado depois de uma mudança intencional:
+
+```powershell
+poetry run python -m inventario_backend.openapi_export
+poetry run pytest tests/test_main.py
+```

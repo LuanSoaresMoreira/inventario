@@ -6,7 +6,6 @@ import json
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "agents" / "manifest.json"
 REQUIRED_AGENT_KEYS = {
@@ -85,7 +84,9 @@ def validate_manifest(manifest: dict, root: Path = ROOT) -> list[str]:
         if isinstance(agent, dict) and REQUIRED_AGENT_KEYS <= agent.keys():
             unknown = set(agent["depends_on"]) - known
             if unknown:
-                errors.append(f"{agent['id']} depende de agente desconhecido: {sorted(unknown)}")
+                errors.append(
+                    f"{agent['id']} depende de agente desconhecido: {sorted(unknown)}"
+                )
             if agent["id"] in agent["depends_on"]:
                 errors.append(f"{agent['id']} depende de si próprio")
 

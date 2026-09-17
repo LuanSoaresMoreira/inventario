@@ -6,20 +6,20 @@
 {
   "id": "SPEC-001",
   "title": "Fundação de arquitetura, dados e segurança",
-  "status": "proposed",
+  "status": "implemented",
   "type": "architecture",
   "priority": "p0",
   "requirement_ids": ["DESAFIO1-BASE", "DESAFIO1-R1", "DESAFIO1-R6"],
   "implementation_owners": ["architecture_security", "backend_integrations", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer"],
   "depends_on": [],
-  "labels": ["spec", "needs-approval", "architecture", "security", "priority:p0"],
+  "labels": ["spec", "ready-for-development", "architecture", "security", "priority:p0"],
   "github_issue": 1,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-15T23:27:35Z",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #1"
   }
 }
 ```
@@ -62,11 +62,11 @@ persistência, auditoria e controles de segurança consistentes.
 
 ## Critérios de aceitação
 
-- [ ] Diagrama de componentes e fronteiras de confiança está versionado.
-- [ ] Modelo de dados conceitual cobre todas as entidades mínimas do desafio.
-- [ ] Estratégia de migração e auditoria possui testes locais não destrutivos.
-- [ ] Contrato OpenAPI inicial é gerado pela aplicação FastAPI.
-- [ ] Threat model registra riscos de IDOR, injeção, exposição pública e abuso.
+- [x] Diagrama de componentes e fronteiras de confiança está versionado.
+- [x] Modelo de dados conceitual cobre todas as entidades mínimas do desafio.
+- [x] Estratégia de migração e auditoria possui testes locais não destrutivos.
+- [x] Contrato OpenAPI inicial é gerado pela aplicação FastAPI.
+- [x] Threat model registra riscos de IDOR, injeção, exposição pública e abuso.
 
 ## Dependências
 
@@ -76,3 +76,13 @@ Nenhuma. Esta spec é a fundação das demais.
 
 Revisão de arquitetura, testes de criação/rollback em banco isolado, validação do
 OpenAPI e execução dos verificadores de segurança definidos no projeto.
+
+## Evidências da implementação
+
+- Arquitetura e fronteiras: `docs/arquitetura.md`.
+- Entidades e invariantes: `docs/modelo-dados.md`.
+- Ameaças e riscos residuais: `docs/modelo-ameacas.md`.
+- Decisão arquitetural: `docs/adr/ADR-001-fundacao-tecnica.md`.
+- OpenAPI gerado: `docs/openapi.json`.
+- Upgrade, append-only e rollback isolados:
+  `inventario_backend/tests/test_migrations.py`.

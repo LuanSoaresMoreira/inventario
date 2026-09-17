@@ -25,7 +25,10 @@ def upgrade() -> None:
         sa.Column("role", sa.String(length=32), nullable=False),
         sa.Column("active", sa.Boolean(), nullable=False),
         sa.Column(
-            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
         sa.CheckConstraint(
             "role IN ('it', 'management', 'administration')",
@@ -42,7 +45,10 @@ def upgrade() -> None:
         sa.Column("kind", sa.String(length=64), nullable=False),
         sa.Column("active", sa.Boolean(), nullable=False),
         sa.Column(
-            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("code"),
@@ -62,7 +68,10 @@ def upgrade() -> None:
         sa.Column("next_maintenance_on", sa.Date(), nullable=True),
         sa.Column("active", sa.Boolean(), nullable=False),
         sa.Column(
-            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
         sa.CheckConstraint(
             "kind IN ('computer', 'projector', 'air_conditioner', 'remote_control', 'other')",
@@ -72,7 +81,9 @@ def upgrade() -> None:
             "status IN ('active', 'maintenance', 'inactive')",
             name="ck_equipment_status",
         ),
-        sa.ForeignKeyConstraint(["location_id"], ["environments.id"], ondelete="RESTRICT"),
+        sa.ForeignKeyConstraint(
+            ["location_id"], ["environments.id"], ondelete="RESTRICT"
+        ),
         sa.ForeignKeyConstraint(
             ["registered_by_id"], ["internal_users.id"], ondelete="RESTRICT"
         ),
@@ -92,7 +103,10 @@ def upgrade() -> None:
         sa.Column("priority", sa.String(length=32), nullable=False),
         sa.Column("assigned_to_id", sa.Uuid(), nullable=True),
         sa.Column(
-            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
         sa.CheckConstraint(
             "priority IN ('low', 'normal', 'high', 'urgent')",
@@ -105,8 +119,12 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(
             ["assigned_to_id"], ["internal_users.id"], ondelete="RESTRICT"
         ),
-        sa.ForeignKeyConstraint(["environment_id"], ["environments.id"], ondelete="RESTRICT"),
-        sa.ForeignKeyConstraint(["equipment_id"], ["equipment.id"], ondelete="RESTRICT"),
+        sa.ForeignKeyConstraint(
+            ["environment_id"], ["environments.id"], ondelete="RESTRICT"
+        ),
+        sa.ForeignKeyConstraint(
+            ["equipment_id"], ["equipment.id"], ondelete="RESTRICT"
+        ),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("public_tracking_token"),
     )
@@ -122,7 +140,10 @@ def upgrade() -> None:
         sa.Column("moved_by_id", sa.Uuid(), nullable=False),
         sa.Column("reason", sa.Text(), nullable=False),
         sa.Column(
-            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
         sa.CheckConstraint(
             "origin_environment_id <> destination_environment_id",
@@ -131,8 +152,12 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(
             ["destination_environment_id"], ["environments.id"], ondelete="RESTRICT"
         ),
-        sa.ForeignKeyConstraint(["equipment_id"], ["equipment.id"], ondelete="RESTRICT"),
-        sa.ForeignKeyConstraint(["moved_by_id"], ["internal_users.id"], ondelete="RESTRICT"),
+        sa.ForeignKeyConstraint(
+            ["equipment_id"], ["equipment.id"], ondelete="RESTRICT"
+        ),
+        sa.ForeignKeyConstraint(
+            ["moved_by_id"], ["internal_users.id"], ondelete="RESTRICT"
+        ),
         sa.ForeignKeyConstraint(
             ["origin_environment_id"], ["environments.id"], ondelete="RESTRICT"
         ),
@@ -155,7 +180,10 @@ def upgrade() -> None:
         sa.Column("procedure", sa.Text(), nullable=True),
         sa.Column("result", sa.Text(), nullable=True),
         sa.Column(
-            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
         sa.CheckConstraint(
             "kind IN ('preventive', 'corrective')", name="ck_maintenances_kind"
@@ -164,8 +192,12 @@ def upgrade() -> None:
             "status IN ('planned', 'in_progress', 'completed', 'cancelled')",
             name="ck_maintenances_status",
         ),
-        sa.ForeignKeyConstraint(["equipment_id"], ["equipment.id"], ondelete="RESTRICT"),
-        sa.ForeignKeyConstraint(["occurrence_id"], ["occurrences.id"], ondelete="RESTRICT"),
+        sa.ForeignKeyConstraint(
+            ["equipment_id"], ["equipment.id"], ondelete="RESTRICT"
+        ),
+        sa.ForeignKeyConstraint(
+            ["occurrence_id"], ["occurrences.id"], ondelete="RESTRICT"
+        ),
         sa.ForeignKeyConstraint(
             ["technician_id"], ["internal_users.id"], ondelete="RESTRICT"
         ),
@@ -187,9 +219,14 @@ def upgrade() -> None:
         sa.Column("new_state", sa.JSON(), nullable=True),
         sa.Column("reason", sa.Text(), nullable=True),
         sa.Column(
-            "occurred_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+            "occurred_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.func.now(),
+            nullable=False,
         ),
-        sa.ForeignKeyConstraint(["actor_id"], ["internal_users.id"], ondelete="RESTRICT"),
+        sa.ForeignKeyConstraint(
+            ["actor_id"], ["internal_users.id"], ondelete="RESTRICT"
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(

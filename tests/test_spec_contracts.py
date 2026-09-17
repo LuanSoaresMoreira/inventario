@@ -15,12 +15,21 @@ class SpecContractTests(unittest.TestCase):
         changed = copy.deepcopy(self.specs)
         changed[-1]["metadata"]["depends_on"].append("SPEC-999")
         self.assertTrue(
-            any("dependência desconhecida" in error for error in validate_specs(changed, ROOT))
+            any(
+                "dependência desconhecida" in error
+                for error in validate_specs(changed, ROOT)
+            )
         )
 
     def test_rejects_approved_spec_without_human_evidence(self) -> None:
         changed = copy.deepcopy(self.specs)
         changed[0]["metadata"]["status"] = "approved"
+        changed[0]["metadata"]["approval"] = {
+            "state": "pending",
+            "approved_by": None,
+            "approved_at": None,
+            "evidence": None,
+        }
         errors = validate_specs(changed, ROOT)
         self.assertTrue(any("aprovação humana" in error for error in errors))
 

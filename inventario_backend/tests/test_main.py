@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from fastapi.testclient import TestClient
 from sqlalchemy.exc import OperationalError
 
@@ -5,6 +8,7 @@ from inventario_backend import main
 from inventario_backend.main import app
 
 client = TestClient(app)
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def test_health_endpoint() -> None:
@@ -43,3 +47,15 @@ def test_database_health_hides_connection_error(monkeypatch) -> None:
 
     assert response.status_code == 503
     assert response.json() == {"detail": "database unavailable"}
+
+
+def test_openapi_contract_is_current() -> None:
+    committed_contract = json.loads(
+        (ROOT / "docs" / "openapi.json").read_text(encoding="utf-8")
+    )
+
+    assert committed_contract == app.openapi()
+    assert set(committed_contract["paths"]) == {
+        "/api/health",
+        "/api/health/database",
+    }

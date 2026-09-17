@@ -68,6 +68,13 @@ critérios de aceitação, dependências, riscos e aprovadores. O fluxo completo
 `specs/README.md`, com um diagrama em `docs/fluxo-orquestracao-agentes.svg`.
 Também há uma versão PNG pronta para visualização no mesmo diretório.
 
+A fundação técnica está documentada em
+[`docs/arquitetura.md`](docs/arquitetura.md), com o
+[`modelo conceitual de dados`](docs/modelo-dados.md), o
+[`modelo de ameaças`](docs/modelo-ameacas.md), a
+[`decisão arquitetural inicial`](docs/adr/ADR-001-fundacao-tecnica.md) e o
+[`contrato OpenAPI`](docs/openapi.json).
+
 Issues novas começam com `needs-spec`. Após a escrita da spec, usam
 `needs-approval`. Somente uma revisão humana registrada permite mudar o status para
 `approved` e aplicar `ready-for-development`.

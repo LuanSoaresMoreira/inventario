@@ -8,7 +8,7 @@ Issue principal: #14.
 
 ## Fundação e requisitos mínimos
 
-- [ ] #1 — SPEC-001: Fundação de arquitetura, dados e segurança
+- [x] #1 — SPEC-001: Fundação de arquitetura, dados e segurança
 - [ ] #2 — SPEC-002: Identidade, autorização e auditoria
 - [ ] #3 — SPEC-003: Ambientes e localizações institucionais
 - [ ] #4 — SPEC-004: Cadastro e inventário de equipamentos
