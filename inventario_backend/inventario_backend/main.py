@@ -1,6 +1,7 @@
 import calendar
 import csv
 import io
+import unicodedata
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 import threading
@@ -1127,6 +1128,24 @@ def _now_utc() -> datetime:
     return datetime.now(timezone.utc)
 
 
+_ACCENTED_SEARCH_CHARS = "áàãâäéèêëíìîïóòõôöúùûüçÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÔÖÚÙÛÜÇ"
+_PLAIN_SEARCH_CHARS = "aaaaaeeeeiiiiooooouuuucAAAAAEEEEIIIIOOOOOUUUUC"
+
+
+def _normalize_search_text(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    return "".join(
+        character for character in normalized if not unicodedata.combining(character)
+    ).lower()
+
+
+def _accent_insensitive_contains(column, value: str):
+    normalized_column = func.lower(
+        func.translate(column, _ACCENTED_SEARCH_CHARS, _PLAIN_SEARCH_CHARS)
+    )
+    return normalized_column.ilike(f"%{_normalize_search_text(value)}%")
+
+
 def _movement_response(movement: Movement) -> MovementResponse:
     return MovementResponse(
         id=movement.id,
@@ -1442,12 +1461,11 @@ def list_environments(
 ) -> EnvironmentListResponse:
     filters = []
     if search:
-        pattern = f"%{search.strip()}%"
         filters.append(
             or_(
-                Environment.code.ilike(pattern),
-                Environment.name.ilike(pattern),
-                Environment.kind.ilike(pattern),
+                _accent_insensitive_contains(Environment.code, search.strip()),
+                _accent_insensitive_contains(Environment.name, search.strip()),
+                _accent_insensitive_contains(Environment.kind, search.strip()),
             )
         )
     if kind:

@@ -115,7 +115,7 @@ function App() {
   const [loginError, setLoginError] = useState("");
   const [environments, setEnvironments] = useState([]);
   const [environmentEditId, setEnvironmentEditId] = useState(null);
-  const [environmentActive, setEnvironmentActive] = useState("");
+  const [expandedEnvironmentId, setExpandedEnvironmentId] = useState(null);
   const [environmentQuery, setEnvironmentQuery] = useState("");
   const [environmentMessage, setEnvironmentMessage] = useState("Carregando ambientes...");
   const [environmentForm, setEnvironmentForm] = useState({
@@ -234,11 +234,10 @@ function App() {
     }
   }, []);
 
-  const loadEnvironments = useCallback(async (signal, search = "", active) => {
+  const loadEnvironments = useCallback(async (signal, search = "") => {
     setEnvironmentMessage("Carregando ambientes...");
     const params = new URLSearchParams();
     if (search.trim()) params.set("search", search.trim());
-    if (active) params.set("active", active);
     const query = params.toString() ? `?${params.toString()}` : "";
     try {
       const data = await fetchJson(`/api/environments${query}`, { signal });
@@ -416,7 +415,7 @@ function App() {
     if (publicToken) return undefined;
     const controller = new AbortController();
     checkSession(controller.signal);
-    loadEnvironments(controller.signal, "", "");
+    loadEnvironments(controller.signal, "");
     loadEquipment(controller.signal, {}, 0);
     loadOccurrences(controller.signal, {});
     loadMaintenances(controller.signal);
@@ -443,7 +442,7 @@ function App() {
       setLoginState("success");
       navigate("home");
       await Promise.all([
-        loadEnvironments(undefined, environmentQuery, environmentActive),
+        loadEnvironments(undefined, environmentQuery),
         loadEquipment(undefined, equipmentFilters, equipmentOffset),
         loadOccurrences(undefined, occurrenceFilter),
         loadMaintenances(undefined),
@@ -485,8 +484,9 @@ function App() {
       });
       setFormState("success");
       setEnvironmentEditId(null);
+      setExpandedEnvironmentId(null);
       setEnvironmentForm({ code: "", name: "", kind: "classroom", active: true, reason: "Cadastro no catálogo institucional" });
-      await loadEnvironments(undefined, environmentQuery, environmentActive);
+      await loadEnvironments(undefined, environmentQuery);
     } catch (error) {
       if (error.status === 401) markSessionExpired();
       setFormState(error.status === 409 ? "duplicate" : "error");
@@ -495,6 +495,7 @@ function App() {
 
   function editEnvironment(environment) {
     setEnvironmentEditId(environment.id);
+    setExpandedEnvironmentId(environment.id);
     setEnvironmentForm({
       code: environment.code,
       name: environment.name,
@@ -506,6 +507,7 @@ function App() {
 
   function cancelEnvironmentEdit() {
     setEnvironmentEditId(null);
+    setExpandedEnvironmentId(null);
     setEnvironmentForm({ code: "", name: "", kind: "classroom", active: true, reason: "Cadastro no catálogo institucional" });
   }
 
@@ -564,7 +566,7 @@ function App() {
         body: JSON.stringify({ active: false, reason: "Inativação pelo catálogo institucional" }),
       });
       setFormState("success");
-      await loadEnvironments(undefined, environmentQuery, environmentActive);
+      await loadEnvironments(undefined, environmentQuery);
     } catch (error) {
       if (error.status === 401) markSessionExpired();
       setFormState(error.status === 403 ? "forbidden" : "error");
@@ -971,12 +973,30 @@ function App() {
             {environmentEditId && <button className="secondary-button" type="button" onClick={cancelEnvironmentEdit}>Cancelar edição</button>}
           </div>
         </form>
-        <form className="search-form" onSubmit={(event) => { event.preventDefault(); loadEnvironments(undefined, environmentQuery, environmentActive); }}>
+        <form className="search-form environment-search-form" onSubmit={(event) => { event.preventDefault(); loadEnvironments(undefined, environmentQuery); }}>
           <label htmlFor="environment-search">Pesquisar por código, nome ou tipo</label>
-          <div className="search-row"><input id="environment-search" value={environmentQuery} onChange={(event) => setEnvironmentQuery(event.target.value)} /><select id="environment-active-filter" aria-label="Filtrar por situação" value={environmentActive} onChange={(event) => setEnvironmentActive(event.target.value)}><option value="">Todas as situações</option><option value="true">Ativos</option><option value="false">Inativos</option></select><button className="secondary-button" type="submit">Pesquisar</button></div>
+          <div className="search-row"><input id="environment-search" placeholder="Ex.: sala, laboratório ou código" value={environmentQuery} onChange={(event) => setEnvironmentQuery(event.target.value)} /><button className="secondary-button" type="submit">Pesquisar</button></div>
         </form>
         <p className="catalog-message" role="status" aria-live="polite">{environmentMessage}{formState === "duplicate" && " Código já cadastrado."}{formState === "forbidden" && " Operação não autorizada."}</p>
-        <ul className="environment-list" aria-label="Ambientes cadastrados">{environments.map((environment) => <li key={environment.id} className="environment-item"><div><strong>{environment.code} — {environment.name}</strong><span>{environment.kind} · {environment.active ? "Ativo" : "Inativo"}</span></div><div className="item-actions"><button className="secondary-button" type="button" onClick={() => editEnvironment(environment)}>Editar</button>{environment.active && <button className="secondary-button" type="button" onClick={() => inactivateEnvironment(environment)}>Inativar</button>}</div></li>)}</ul>
+        <ul className="environment-list" aria-label="Ambientes cadastrados">{environments.map((environment) => {
+          const isExpanded = expandedEnvironmentId === environment.id;
+          return <li key={environment.id} className={`environment-item${isExpanded ? " expanded" : ""}`}>
+            <button className="environment-summary" type="button" aria-expanded={isExpanded} onClick={() => setExpandedEnvironmentId(isExpanded ? null : environment.id)}>
+              <span className="environment-summary-copy"><strong>{environment.code} — {environment.name}</strong><span>{environment.kind} · {environment.active ? "Ativo" : "Inativo"}</span></span>
+              <span className="accordion-toggle">{isExpanded ? "Fechar" : "Abrir"}</span>
+            </button>
+            {isExpanded && <div className="environment-details">
+              <dl className="environment-detail-grid">
+                <div><dt>Código institucional</dt><dd>{environment.code}</dd></div>
+                <div><dt>Nome</dt><dd>{environment.name}</dd></div>
+                <div><dt>Tipo</dt><dd>{environment.kind}</dd></div>
+                <div><dt>Situação</dt><dd>{environment.active ? "Ativo" : "Inativo"}</dd></div>
+                <div><dt>Cadastrado em</dt><dd>{new Date(environment.created_at).toLocaleString()}</dd></div>
+              </dl>
+              <div className="item-actions"><button className="secondary-button" type="button" onClick={() => editEnvironment(environment)}>Editar</button>{environment.active && <button className="secondary-button" type="button" onClick={() => inactivateEnvironment(environment)}>Inativar</button>}</div>
+            </div>}
+          </li>;
+        })}</ul>
        </section>}
 
        {activePage === "equipment" && <section className="catalog-panel" aria-labelledby="equipment-title">

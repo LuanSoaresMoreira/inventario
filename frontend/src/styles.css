@@ -2,6 +2,7 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #182230;
   background: #f4f7fb;
+  line-height: 1.5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -14,6 +15,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  background: #f4f7fb;
 }
 
 button {
@@ -25,34 +27,40 @@ button {
   min-height: 100vh;
   align-content: start;
   justify-items: center;
-  padding: 2rem;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
 }
 
 .catalog-panel {
-  width: min(100%, 56rem);
-  margin-top: 1.5rem;
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  width: 100%;
+  max-width: 64rem;
+  margin: 1.25rem auto 0;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
   background: #ffffff;
   border: 1px solid #dce4ef;
-  border-radius: 1.5rem;
-  box-shadow: 0 1.5rem 4rem rgb(27 52 80 / 8%);
+  border-radius: 1.25rem;
+  box-shadow: 0 1rem 2.5rem rgb(27 52 80 / 7%);
 }
 
 .app-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  width: min(100%, 56rem);
-  margin-top: 1rem;
-  padding: 0.5rem;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0.45rem;
   background: #ffffff;
   border: 1px solid #dce4ef;
-  border-radius: 0.9rem;
-  box-shadow: 0 0.75rem 2rem rgb(27 52 80 / 6%);
+  border-radius: 0.85rem;
+  box-shadow: 0 0.75rem 1.75rem rgb(27 52 80 / 6%);
 }
 
 .nav-button {
-  padding: 0.7rem 0.9rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.8rem;
   color: #52606d;
   background: transparent;
   border: 0;
@@ -84,15 +92,15 @@ button {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.25rem;
 }
 
 .dashboard-card {
   display: grid;
   gap: 0.45rem;
-  min-height: 9rem;
+  min-height: 8.5rem;
   padding: 1rem;
   color: #243b53;
   text-align: left;
@@ -126,7 +134,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
 .report-link {
@@ -139,13 +147,14 @@ button {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
 .report-summary div {
   display: grid;
   gap: 0.35rem;
-  padding: 1rem;
+  min-height: 5.25rem;
+  padding: 0.9rem;
   background: #f5fbff;
   border: 1px solid #b9d4e8;
   border-radius: 0.75rem;
@@ -161,7 +170,7 @@ button {
 }
 
 .subsection-title {
-  margin: 2rem 0 0;
+  margin: 1.75rem 0 0;
   color: #102a43;
 }
 
@@ -171,10 +180,22 @@ h2 {
   font-size: clamp(1.5rem, 4vw, 2.25rem);
 }
 
+h3 {
+  color: #102a43;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
 .environment-form,
 .search-form,
 .login-form {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.search-form,
+.equipment-filter-form {
+  display: grid;
+  gap: 1rem;
 }
 
 .login-form {
@@ -197,10 +218,14 @@ h2 {
   align-items: center;
 }
 
+.form-actions {
+  margin-top: 1.1rem;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1rem 1.1rem;
 }
 
 label {
@@ -212,6 +237,7 @@ label {
 
 input {
   width: 100%;
+  min-height: 2.75rem;
   padding: 0.7rem 0.8rem;
   color: #182230;
   background: #ffffff;
@@ -222,6 +248,7 @@ input {
 
 select {
   width: 100%;
+  min-height: 2.75rem;
   padding: 0.7rem 0.8rem;
   color: #182230;
   background: #ffffff;
@@ -239,6 +266,7 @@ textarea:focus-visible {
 
 textarea {
   width: 100%;
+  min-height: 6rem;
   padding: 0.7rem 0.8rem;
   color: #182230;
   background: #ffffff;
@@ -267,7 +295,7 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.1rem;
   color: #52606d;
 }
 
@@ -282,13 +310,15 @@ textarea {
 }
 
 .secondary-button {
-  padding: 0.7rem 0.9rem;
+  min-height: 2.65rem;
+  padding: 0.55rem 0.85rem;
   color: #1769aa;
   background: #ffffff;
   border: 2px solid #1769aa;
   border-radius: 0.6rem;
   cursor: pointer;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .secondary-button:hover {
@@ -385,20 +415,38 @@ textarea {
   display: grid;
   gap: 0.75rem;
   padding: 0;
-  margin: 1rem 0 0;
+  margin: 1.25rem 0 0;
   list-style: none;
+}
+
+.environment-search-form {
+  max-width: 48rem;
+  padding: 1rem;
+  background: #f8fbff;
+  border: 1px solid #dce4ef;
+  border-radius: 0.85rem;
+}
+
+.environment-search-form .search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+
+.environment-search-form .secondary-button {
+  margin-top: 0;
 }
 
 .equipment-form,
 .equipment-filter-form {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
 .equipment-list {
   display: grid;
   gap: 0.75rem;
   padding: 0;
-  margin: 1rem 0 0;
+  margin: 1.25rem 0 0;
   list-style: none;
 }
 
@@ -407,54 +455,136 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.9rem 1rem;
+  background: #ffffff;
   border: 1px solid #dce4ef;
   border-radius: 0.75rem;
 }
 
-.equipment-item div {
+.equipment-item > div:first-child {
   display: grid;
   gap: 0.35rem;
+  min-width: 0;
 }
 
 .equipment-item span {
   color: #52606d;
+  overflow-wrap: anywhere;
 }
 
 .environment-item .item-actions,
 .equipment-item .item-actions {
   flex: 0 0 auto;
+  display: flex;
 }
 
 .environment-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  background: #ffffff;
   border: 1px solid #dce4ef;
   border-radius: 0.75rem;
 }
 
-.environment-item div {
+.environment-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 1rem;
+  color: #243b53;
+  text-align: left;
+  background: #ffffff;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.environment-summary:hover {
+  background: #f5fbff;
+}
+
+.environment-summary:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: -3px;
+}
+
+.environment-summary-copy {
   display: grid;
   gap: 0.35rem;
+  min-width: 0;
 }
 
-.environment-item span {
+.environment-summary-copy strong {
+  overflow-wrap: anywhere;
+}
+
+.environment-summary-copy span {
   color: #52606d;
+  overflow-wrap: anywhere;
 }
 
-@media (max-width: 600px) {
+.accordion-toggle {
+  flex: 0 0 auto;
+  color: #1769aa;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.environment-details {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fbff;
+  border-top: 1px solid #dce4ef;
+}
+
+.environment-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 0;
+}
+
+.environment-detail-grid div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.environment-detail-grid dt {
+  color: #7b8794;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.environment-detail-grid dd {
+  margin: 0;
+  color: #243b53;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 720px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
 
   .search-row,
-  .environment-item,
   .equipment-item {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .environment-search-form .search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .environment-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .dashboard-grid {
@@ -467,6 +597,10 @@ textarea {
 
   .nav-logout {
     margin-left: 0;
+  }
+
+  .app-nav .nav-button {
+    flex: 1 1 auto;
   }
 }
 
@@ -539,14 +673,19 @@ h1 {
 }
 
 .retry-button {
-  margin-top: 1.25rem;
-  padding: 0.75rem 1rem;
+  min-height: 2.75rem;
+  margin-top: 1.15rem;
+  padding: 0.65rem 1rem;
   color: #ffffff;
   background: #1769aa;
   border: 2px solid #1769aa;
   border-radius: 0.6rem;
   cursor: pointer;
   font-weight: 700;
+}
+
+.form-actions .retry-button {
+  margin-top: 0;
 }
 
 .retry-button:hover {
