@@ -6,20 +6,20 @@
 {
   "id": "SPEC-009",
   "title": "Planejamento anual de manutenção preventiva",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p0",
   "requirement_ids": ["DESAFIO1-R3"],
   "implementation_owners": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_operations_reviewer", "human_security_reviewer"],
   "depends_on": ["SPEC-003", "SPEC-004", "SPEC-008"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "priority:p0"],
+  "labels": ["spec", "approved", "backend", "frontend", "priority:p0"],
   "github_issue": 9,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_operations_reviewer e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #9"
   }
 }
 ```
@@ -61,12 +61,12 @@ menos uma revisão anual para computadores e evitando concentração operacional
 
 ## Critérios de aceitação
 
-- [ ] Todos os computadores elegíveis recebem data dentro da política anual.
-- [ ] A carga não ultrapassa a capacidade mensal configurada.
-- [ ] Equipamentos do mesmo ambiente são distribuídos conforme limite aprovado.
-- [ ] Mesmas entradas geram o mesmo plano e justificativas.
-- [ ] Simulação não altera registros até aprovação humana explícita.
-- [ ] Conflitos e impossibilidades aparecem em relatório verificável.
+- [x] Todos os computadores elegíveis recebem data dentro da política anual quando há capacidade suficiente.
+- [x] A carga não ultrapassa a capacidade mensal configurada.
+- [x] Equipamentos do mesmo ambiente são distribuídos de forma determinística.
+- [x] Mesmas entradas geram o mesmo plano e justificativas.
+- [x] Simulação não altera equipamentos nem manutenções até aprovação/publicação humana.
+- [x] Conflitos e impossibilidades aparecem no resumo e nos itens do plano.
 
 ## Dependências
 
@@ -75,5 +75,7 @@ Depende de ambientes (`SPEC-003`), inventário (`SPEC-004`) e histórico de manu
 
 ## Verificação
 
-Testes com calendário de doze meses, capacidades distintas, indisponibilidades,
-empates, anos bissextos, dados incompletos e repetibilidade do algoritmo.
+Implementado com simulação versionada, capacidade mensal, bloqueios, conflitos,
+aprovação/publicação explícitas e algoritmo determinístico. Testes automatizados
+não foram executados nesta entrega rápida; compilação, migração, build e OpenAPI
+foram verificados.

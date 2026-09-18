@@ -6,10 +6,23 @@ def test_initial_domain_tables_are_registered() -> None:
         "audit_events",
         "environments",
         "equipment",
+        "equipment_warranties",
+        "failure_prediction_policies",
+        "failure_predictions",
         "internal_users",
         "maintenances",
+        "maintenance_components",
+        "maintenance_alerts",
+        "maintenance_costs",
+        "maintenance_plan_items",
+        "maintenance_plans",
         "movements",
+        "notification_deliveries",
         "occurrences",
+        "occurrence_comments",
+        "prediction_evaluations",
+        "prediction_notifications",
+        "user_sessions",
     }
 
 

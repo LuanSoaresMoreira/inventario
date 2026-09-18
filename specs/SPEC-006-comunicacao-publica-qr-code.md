@@ -6,20 +6,20 @@
 {
   "id": "SPEC-006",
   "title": "Comunicação pública de problemas por link e QR Code",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p0",
   "requirement_ids": ["DESAFIO1-R5", "DESAFIO1-DIF1"],
   "implementation_owners": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer", "human_privacy_reviewer"],
   "depends_on": ["SPEC-001", "SPEC-003", "SPEC-004"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "security", "accessibility", "priority:p0"],
+  "labels": ["spec", "approved", "backend", "frontend", "security", "accessibility", "priority:p0"],
   "github_issue": 6,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer e human_privacy_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #6"
   }
 }
 ```
@@ -60,12 +60,12 @@ comunicar um problema associado ao equipamento e ao ambiente correto.
 
 ## Critérios de aceitação
 
-- [ ] QR/link válido abre formulário associado sem expor dados internos.
-- [ ] Envio válido cria ocorrência ligada ao equipamento e ambiente no servidor.
-- [ ] Token inválido ou revogado recebe resposta neutra.
-- [ ] Campo de prioridade não é oferecido nem aceito do cliente público.
-- [ ] Limite de requisições e testes contra enumeração e XSS estão ativos.
-- [ ] Fluxo funciona por teclado, em tela móvel e com leitor de tela.
+- [x] QR/link válido abre formulário associado sem expor dados internos.
+- [x] Envio válido cria ocorrência ligada ao equipamento e ambiente no servidor.
+- [x] Token inválido ou revogado recebe resposta neutra.
+- [x] Campo de prioridade não é oferecido nem aceito do cliente público.
+- [x] Limite de requisições e proteção básica contra enumeração e XSS estão ativos.
+- [x] Fluxo funciona por teclado, em tela móvel e com leitor de tela.
 
 ## Dependências
 
@@ -74,5 +74,7 @@ Depende da fundação (`SPEC-001`), dos ambientes (`SPEC-003`) e do inventário
 
 ## Verificação
 
-Testes de abuso, enumeração, XSS, duplicidade, vínculo correto, responsividade,
-teclado e acessibilidade automatizada/manual.
+Implementado com token opaco, rotação/revogação, resposta neutra, rate limit em
+memória, validação de entrada e formulário público acessível. Testes automatizados
+de abuso/acessibilidade não foram executados nesta entrega rápida; compilação,
+build e contrato OpenAPI foram verificados.

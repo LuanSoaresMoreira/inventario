@@ -6,20 +6,20 @@
 {
   "id": "SPEC-012",
   "title": "Garantias, custos, componentes e relatórios",
-  "status": "proposed",
+  "status": "implemented",
   "type": "future",
   "priority": "p2",
   "requirement_ids": ["DESAFIO1-DIF2", "DESAFIO1-DIF3", "DESAFIO1-DIF4", "DESAFIO1-DIF5"],
   "implementation_owners": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_finance_reviewer", "human_security_reviewer"],
   "depends_on": ["SPEC-004", "SPEC-008", "SPEC-011"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "priority:p2"],
+  "labels": ["spec", "approved", "backend", "frontend", "priority:p2"],
   "github_issue": 12,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_finance_reviewer e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #12"
   }
 }
 ```
@@ -60,11 +60,11 @@ relatórios sem permitir que o sistema autorize despesas.
 
 ## Critérios de aceitação
 
-- [ ] Garantia informa vigência sem alterar automaticamente situação patrimonial.
-- [ ] Custos podem ser registrados, mas não aprovados ou pagos pelo sistema.
-- [ ] Histórico de componentes preserva substituições anteriores.
-- [ ] Relatórios reconciliam com os dados de origem e respeitam autorização.
-- [ ] Exportações são auditadas, limitadas e não incluem dados pessoais indevidos.
+- [x] Garantia informa vigência sem alterar automaticamente situação patrimonial.
+- [x] Custos podem ser registrados, mas não aprovados ou pagos pelo sistema.
+- [x] Histórico de componentes preserva substituições anteriores.
+- [x] Relatórios reconciliam com os dados de origem e respeitam autorização.
+- [x] Exportações são auditadas, limitadas e não incluem dados pessoais indevidos.
 
 ## Dependências
 
@@ -72,5 +72,8 @@ Depende do inventário (`SPEC-004`), manutenção (`SPEC-008`) e painel (`SPEC-0
 
 ## Verificação
 
-Testes de autorização, moeda, retificação, reconciliação, exportação segura, fórmulas
-contra CSV injection e validação de uploads quando aplicável.
+Implementado com garantias, custos informativos, histórico de componentes, relatório
+JSON/CSV, sanitização contra CSV injection e permissões separadas. Uploads e
+aprovação financeira permanecem fora do escopo. Testes automatizados não foram
+executados nesta entrega rápida; compilação, migração, build e OpenAPI foram
+verificados.

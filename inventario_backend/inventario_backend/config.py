@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     """Configuração carregada do ambiente, sem credenciais no código-fonte."""
 
     database_url: PostgresDsn
+    session_ttl_minutes: int = 480
+    cookie_secure: bool = False
+    public_app_url: str = "http://127.0.0.1:5173"
 
     model_config = SettingsConfigDict(
         env_file=".env",

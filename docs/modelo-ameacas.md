@@ -18,7 +18,12 @@ pública.
 | Falsificação de identidade | Cliente informa outro ator em uma mudança patrimonial | `actor_id` existe no modelo de auditoria | Derivar o ator exclusivamente da sessão validada, nunca do corpo da requisição (SPEC-002) | Alto antes da identidade institucional |
 | Adulteração de auditoria | Atacante atualiza ou remove evento antigo | Trigger rejeita `UPDATE` e `DELETE`; teste de integração verifica ambos | Credenciais separadas para migração e aplicação; exportação/monitoramento imutável | Administrador do banco ainda possui poder técnico |
 | Vazamento de segredo | URL do banco aparece no Git, log ou resposta | Configuração por ambiente, `.env` ignorado e erro sanitizado | Gerenciador de segredos e rotação em produção | Médio até definição da infraestrutura |
-| Elevação de privilégio | Usuário comum invoca operação administrativa | Nenhuma rota funcional existe nesta etapa | Matriz de permissões determinística, deny-by-default e testes por papel (SPEC-002) | Alto antes da SPEC-002 |
+| Elevação de privilégio | Usuário comum invoca operação administrativa | Matriz determinística no servidor, deny-by-default e auditoria de 403 | Testes por papel e revisão da matriz antes da produção | Médio até cobrir todas as rotas funcionais |
+| Sessão roubada/CSRF | Token de sessão é reutilizado ou navegador envia cookie em requisição forjada | Cookie HttpOnly, expiração, revogação no servidor, token CSRF em cookie + cabeçalho | HTTPS, política de expiração revisada e monitoramento | Médio sem HTTPS em desenvolvimento |
+| Automação indevida por recomendação | Saída de previsão altera patrimônio, agenda ou prioridade sem supervisão | Baseline determinístico, política desabilitada por padrão, decisão humana e auditoria | Revisão de model risk e aceite operacional antes de ativação | Baixo no fluxo implementado |
+| Falsa confiança/abstenção ignorada | Usuário interpreta score como certeza ou ignora baixa qualidade dos dados | Score, confiança, justificativa, `abstain` explícito e interface falível | Treinamento operacional e revisão periódica de métricas | Médio |
+| Deriva ou degradação | Desempenho do baseline deixa de superar o conjunto de referência | Avaliação versionada, falsos positivos/negativos, monitoramento e desativação manual | Avaliação com dados anonimizados aprovados antes de produção | Alto fora do conjunto sintético |
+| Envenenamento/conteúdo não confiável | Descrição histórica influencia modelo como instrução ou dado malicioso | Apenas contagens e flags agregadas entram no baseline; nenhum serviço externo recebe dados | Revisão de qualidade, privacidade e red team antes de modelo futuro | Baixo no baseline |
 
 ## Regras de verificação
 
@@ -31,6 +36,8 @@ pública.
 4. Rate limiting e monitoramento precisam estar fora do controle do cliente e não
    podem ser substituídos por uma recomendação de IA.
 5. Eventos de auditoria são append-only; correções geram um evento compensatório.
+6. A SPEC-013 não autoriza envio externo, treinamento com dados pessoais ou mudança
+   de estado; qualquer extensão exige novo gate humano e revisão de impacto.
 
 ## Aceitação de risco
 

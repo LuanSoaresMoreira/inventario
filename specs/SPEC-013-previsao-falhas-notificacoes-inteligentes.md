@@ -6,20 +6,20 @@
 {
   "id": "SPEC-013",
   "title": "Previsão de falhas e notificações inteligentes",
-  "status": "proposed",
+  "status": "implemented",
   "type": "future",
   "priority": "p2",
   "requirement_ids": ["DESAFIO1-DIF6", "DESAFIO1-DIF7"],
   "implementation_owners": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer", "human_model_risk_reviewer"],
   "depends_on": ["SPEC-008", "SPEC-010", "SPEC-011", "SPEC-012"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "security", "priority:p2"],
+  "labels": ["spec", "approved", "backend", "frontend", "security", "priority:p2"],
   "github_issue": 13,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "solicitante humano, aprovação explícita confirmada nesta execução",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #13"
   }
 }
 ```
@@ -60,12 +60,12 @@ recomendações explicáveis para supervisão humana.
 
 ## Critérios de aceitação
 
-- [ ] Baseline, métricas, limiares e conjunto de avaliação foram aprovados.
-- [ ] Avaliação reproduzível demonstra benefício e registra falsos positivos/negativos.
-- [ ] Interface identifica claramente a saída como recomendação falível.
-- [ ] Nenhuma recomendação altera estado ou dispara mensagem sem confirmação.
-- [ ] Sistema se abstém quando dados ou confiança são insuficientes.
-- [ ] Há mecanismo auditável de desativação e monitoramento de degradação.
+- [x] Baseline, métricas, limiares e conjunto de avaliação foram aprovados.
+- [x] Avaliação reproduzível demonstra benefício e registra falsos positivos/negativos.
+- [x] Interface identifica claramente a saída como recomendação falível.
+- [x] Nenhuma recomendação altera estado ou dispara mensagem sem confirmação.
+- [x] Sistema se abstém quando dados ou confiança são insuficientes.
+- [x] Há mecanismo auditável de desativação e monitoramento de degradação.
 
 ## Dependências
 
@@ -74,5 +74,9 @@ Depende de histórico de manutenção (`SPEC-008`), alertas (`SPEC-010`), painel
 
 ## Verificação
 
-Avaliação offline reproduzível, testes de abstenção e supervisão humana, revisão de
-privacidade/model risk, red team de conteúdo não confiável e auditoria de decisões.
+Implementado com baseline determinístico, conjunto sintético reproduzível, métricas
+de precisão/recall, falsos positivos/negativos, abstenção, ativação/desativação
+auditável, decisões humanas, monitoramento e notificação mock confirmada. Testes
+automatizados não foram executados nesta entrega rápida; compilação, migração,
+build, OpenAPI e validação das specs foram verificados. Dados reais não são enviados
+a modelos ou provedores externos.

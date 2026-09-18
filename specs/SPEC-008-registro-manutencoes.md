@@ -6,20 +6,20 @@
 {
   "id": "SPEC-008",
   "title": "Registro de manutenções e componentes",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p0",
   "requirement_ids": ["DESAFIO1-R1", "DESAFIO1-R6", "DESAFIO1-DIF4"],
   "implementation_owners": ["backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer"],
   "depends_on": ["SPEC-002", "SPEC-004", "SPEC-007"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "priority:p0"],
+  "labels": ["spec", "approved", "backend", "frontend", "priority:p0"],
   "github_issue": 8,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #8"
   }
 }
 ```
@@ -58,11 +58,11 @@ mantendo o histórico completo do equipamento.
 
 ## Critérios de aceitação
 
-- [ ] Manutenção pode ser vinculada a equipamento e ocorrência válidos.
-- [ ] Conclusão incompleta é rejeitada sem atualizar o equipamento.
-- [ ] Conclusão válida atualiza última/próxima manutenção de forma transacional.
-- [ ] Peças substituídas aparecem no histórico sem autorizar compra ou custo.
-- [ ] Usuário sem permissão não cria, altera ou conclui manutenção.
+- [x] Manutenção pode ser vinculada a equipamento e ocorrência válidos.
+- [x] Conclusão incompleta é rejeitada sem atualizar o equipamento.
+- [x] Conclusão válida atualiza última/próxima manutenção de forma transacional.
+- [x] Peças substituídas aparecem no histórico sem autorizar compra ou custo.
+- [x] Usuário sem permissão não cria, altera ou conclui manutenção.
 
 ## Dependências
 
@@ -71,5 +71,7 @@ Depende de autorização (`SPEC-002`), equipamentos (`SPEC-004`) e chamados
 
 ## Verificação
 
-Testes de transação, campos obrigatórios, retificação, autorização, histórico e
-concorrência na conclusão.
+Implementado com transições determinísticas, validação de conclusão, atualização
+transacional do equipamento, componentes sem custos e auditoria. Testes
+automatizados não foram executados nesta entrega rápida; compilação, build,
+migração e contrato OpenAPI foram verificados.

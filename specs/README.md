@@ -43,5 +43,6 @@ python scripts/validate_specs.py
 python -m unittest discover -s tests -v
 ```
 
-As specs deste backlog começam como propostas. Uma pessoa autorizada deve revisar
-as decisões pendentes antes de trocar a label para `ready-for-development`.
+As specs 001 a 013 têm aprovação explícita registrada em seus metadados e estão
+implementadas. A SPEC-013 usa recomendações determinísticas, permanece desabilitada
+até avaliação/ativação explícita e não envia comunicação real.

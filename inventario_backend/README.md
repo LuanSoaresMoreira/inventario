@@ -40,6 +40,8 @@ poetry run alembic current
 `DATABASE_URL` usa o formato
 `postgresql+psycopg://usuario:senha@host:porta/banco`. Em produção, forneça essa
 variável pelo gerenciador de segredos do ambiente; não versione o arquivo `.env`.
+`COOKIE_SECURE=true` é obrigatório quando a API estiver atrás de HTTPS; mantenha-o
+`false` somente no desenvolvimento local.
 
 O volume nomeado `postgres_data` preserva os dados entre reinicializações. Para
 parar o serviço sem apagar os dados, execute `docker compose stop postgres`.
@@ -55,7 +57,21 @@ Endpoints iniciais:
 
 - `GET http://127.0.0.1:8000/api/health`
 - `GET http://127.0.0.1:8000/api/health/database` (conectividade com PostgreSQL)
+- `POST http://127.0.0.1:8000/api/auth/login` (sessão local em cookie HttpOnly)
+- `POST http://127.0.0.1:8000/api/auth/logout` (cookie CSRF + `X-CSRF-Token`)
+- `GET http://127.0.0.1:8000/api/auth/me`
+- `PATCH http://127.0.0.1:8000/api/auth/users/{user_id}/role` (admin + CSRF)
+- `GET http://127.0.0.1:8000/api/failure-predictions/monitoring` (sessão + leitura)
 - documentação interativa: `http://127.0.0.1:8000/docs`
+
+O login local exige um `internal_user` previamente provisionado com
+`password_hash`. O adaptador institucional de identidade ainda está fora do
+escopo; não existe cadastro público de contas. Os papéis e permissões estão em
+[`docs/matriz-autorizacao.md`](../docs/matriz-autorizacao.md).
+
+A SPEC-013 usa um baseline determinístico inicialmente desabilitado. A avaliação,
+ativação, desativação, decisão humana e eventual notificação mock são auditadas;
+nenhuma recomendação altera o inventário ou envia e-mail real.
 
 Os testes podem ser executados com:
 

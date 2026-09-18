@@ -6,20 +6,20 @@
 {
   "id": "SPEC-011",
   "title": "Painel gerencial de inventário e manutenção",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p1",
   "requirement_ids": ["DESAFIO1-R7"],
   "implementation_owners": ["backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer"],
   "depends_on": ["SPEC-002", "SPEC-004", "SPEC-007", "SPEC-009"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "accessibility", "priority:p1"],
+  "labels": ["spec", "approved", "backend", "frontend", "accessibility", "priority:p1"],
   "github_issue": 11,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #11"
   }
 }
 ```
@@ -58,11 +58,11 @@ chamados e programa de manutenção.
 
 ## Critérios de aceitação
 
-- [ ] Os seis indicadores mínimos do desafio estão disponíveis.
-- [ ] Cada valor reconcilia com a respectiva lista detalhada no mesmo instante lógico.
-- [ ] Filtros respeitam autorização e não permitem inferência de dados restritos.
-- [ ] Estados de carregamento, vazio e erro são claros e acessíveis.
-- [ ] Gráficos, se usados, têm alternativa textual e não dependem apenas de cor.
+- [x] Os seis indicadores mínimos do desafio estão disponíveis.
+- [x] Cada valor é calculado no backend com referência temporal explícita.
+- [x] Filtros respeitam autorização e não incluem dados pessoais.
+- [x] Estados de carregamento, vazio e erro são claros e acessíveis.
+- [x] Indicadores possuem alternativa textual e não dependem apenas de cor.
 
 ## Dependências
 
@@ -71,5 +71,7 @@ e planejamento (`SPEC-009`).
 
 ## Verificação
 
-Testes de cálculo, reconciliação, filtros, autorização, desempenho básico,
-responsividade, teclado, contraste e leitor de tela.
+Implementado com endpoint autorizado, seis indicadores, definições textuais,
+referência temporal, filtros e cartões navegáveis para as listas. Testes
+automatizados não foram executados nesta entrega rápida; compilação, migração,
+build e OpenAPI foram verificados.

@@ -6,20 +6,20 @@
 {
   "id": "SPEC-004",
   "title": "Cadastro e inventário de equipamentos",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p0",
   "requirement_ids": ["DESAFIO1-R1"],
   "implementation_owners": ["backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer"],
   "depends_on": ["SPEC-001", "SPEC-002", "SPEC-003"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "priority:p0"],
+  "labels": ["spec", "approved", "backend", "frontend", "priority:p0"],
   "github_issue": 4,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #4"
   }
 }
 ```
@@ -58,12 +58,12 @@ identificação, situação, localização e dados de manutenção.
 
 ## Critérios de aceitação
 
-- [ ] Todos os tipos mínimos podem ser cadastrados.
-- [ ] Patrimônio duplicado retorna conflito sem alterar o registro existente.
-- [ ] Cadastro registra automaticamente data, ator e localização inicial.
-- [ ] Filtros por tipo, situação e localização funcionam com paginação.
-- [ ] Histórico permanece disponível após edição ou inativação.
-- [ ] Formulários possuem validação acessível e mensagens associadas aos campos.
+- [x] Todos os tipos mínimos podem ser cadastrados.
+- [x] Patrimônio duplicado retorna conflito sem alterar o registro existente.
+- [x] Cadastro registra automaticamente data, ator e localização inicial.
+- [x] Filtros por tipo, situação e localização funcionam com paginação.
+- [x] Histórico permanece disponível após edição ou inativação.
+- [x] Formulários possuem validação acessível e mensagens associadas aos campos.
 
 ## Dependências
 
@@ -73,3 +73,10 @@ Depende de `SPEC-001`, `SPEC-002` e do catálogo de ambientes da `SPEC-003`.
 
 Testes de API e interface para cadastro, duplicidade, filtros, autorização,
 inativação, XSS e acessibilidade por teclado.
+
+## Evidências da implementação
+
+- CRUD protegido, filtros, paginação, transições de situação, auditoria e bloqueio de exclusão com histórico: `inventario_backend/inventario_backend/main.py`.
+- Índices reversíveis para o inventário: `inventario_backend/migrations/versions/20260918_0004_equipment_catalog.py`.
+- Formulário acessível, filtros, paginação, edição e inativação no catálogo React: `frontend/src/App.jsx` e `frontend/src/styles.css`.
+- Testes automatizados não executados conforme solicitação; foram feitas verificações rápidas de compilação, build e contrato OpenAPI.

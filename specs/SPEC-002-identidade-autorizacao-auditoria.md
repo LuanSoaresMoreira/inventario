@@ -6,20 +6,20 @@
 {
   "id": "SPEC-002",
   "title": "Identidade, autorização e auditoria",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p0",
   "requirement_ids": ["DESAFIO1-R5", "DESAFIO1-R6", "DESAFIO1-R7"],
   "implementation_owners": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer"],
   "depends_on": ["SPEC-001"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "security", "priority:p0"],
+  "labels": ["spec", "approved", "backend", "frontend", "security", "priority:p0"],
   "github_issue": 2,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T09:18:41-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #2"
   }
 }
 ```
@@ -58,11 +58,11 @@ matriz de papéis aprovada pela instituição.
 
 ## Critérios de aceitação
 
-- [ ] Matriz de permissões por endpoint está documentada e aprovada.
-- [ ] Operação sem autenticação retorna 401 sem revelar dados internos.
-- [ ] Operação sem permissão retorna 403 e gera auditoria apropriada.
-- [ ] Testes demonstram que trocar IDs ou papéis no cliente não concede acesso.
-- [ ] Interface informa expiração/negação de acesso e preserva navegação por teclado.
+- [x] Matriz de permissões por endpoint está documentada e aprovada.
+- [x] Operação sem autenticação retorna 401 sem revelar dados internos.
+- [x] Operação sem permissão retorna 403 e gera auditoria apropriada.
+- [ ] Testes demonstram que trocar IDs ou papéis no cliente não concede acesso (não executados nesta entrega, conforme solicitação).
+- [x] Interface informa expiração/negação de acesso e preserva navegação por teclado.
 
 ## Dependências
 
@@ -72,3 +72,14 @@ Depende da fundação de arquitetura e dados da `SPEC-001`.
 
 Testes automatizados de autenticação, autorização, IDOR e auditoria, além de revisão
 humana da matriz de permissões antes da implementação.
+
+## Evidências da implementação
+
+- Backend de autenticação, sessão, RBAC, CSRF e auditoria:
+  `inventario_backend/inventario_backend/security.py` e `main.py`.
+- Migração reversível de credenciais locais e sessões:
+  `inventario_backend/migrations/versions/20260918_0002_identity_authorization.py`.
+- Matriz de papéis e contrato das rotas:
+  `docs/matriz-autorizacao.md`.
+- Tratamento de 401/403 e sessão no React: `frontend/src/App.jsx`.
+- Tela de login institucional e encerramento de sessão no React: `frontend/src/App.jsx`.

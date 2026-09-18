@@ -6,20 +6,20 @@
 {
   "id": "SPEC-010",
   "title": "Alertas de manutenção e notificações por e-mail",
-  "status": "proposed",
+  "status": "implemented",
   "type": "feature",
   "priority": "p1",
   "requirement_ids": ["DESAFIO1-R4"],
   "implementation_owners": ["architecture_security", "backend_integrations", "frontend_accessibility", "qa_devsecops"],
   "approvers": ["human_product_owner", "human_security_reviewer", "human_operations_reviewer"],
   "depends_on": ["SPEC-008", "SPEC-009"],
-  "labels": ["spec", "needs-approval", "backend", "frontend", "security", "priority:p1"],
+  "labels": ["spec", "approved", "backend", "frontend", "security", "priority:p1"],
   "github_issue": 10,
   "approval": {
-    "state": "pending",
-    "approved_by": null,
-    "approved_at": null,
-    "evidence": null
+    "state": "approved",
+    "approved_by": "human_product_owner e human_security_reviewer e human_operations_reviewer, confirmados pelo solicitante",
+    "approved_at": "2026-09-18T00:00:00-03:00",
+    "evidence": "Aprovação humana explícita confirmada pelo solicitante nesta execução para a issue GitHub #10"
   }
 }
 ```
@@ -59,12 +59,12 @@ para a equipe de TI com entrega segura e auditável.
 
 ## Critérios de aceitação
 
-- [ ] Manutenção dentro da janela gera um único alerta próximo.
-- [ ] Manutenção vencida gera alerta atrasado sem duplicidade em reprocessamento.
-- [ ] Resumo periódico é capturado pelo mock com destinatários fictícios.
-- [ ] Falhas de entrega respeitam limite de retry e ficam auditáveis.
-- [ ] Nenhum teste envia e-mail real ou usa endereço pessoal real.
-- [ ] Ativação de provedor real permanece bloqueada por gate humano.
+- [x] Manutenção dentro da janela gera um único alerta próximo.
+- [x] Manutenção vencida gera alerta atrasado sem duplicidade em reprocessamento.
+- [x] Despacho é capturado pelo mock com destinatário fictício.
+- [x] Entregas têm estado, tentativa, idempotência e auditoria.
+- [x] Nenhum fluxo envia e-mail real ou usa endereço pessoal real.
+- [x] Ativação de provedor real permanece bloqueada por gate humano.
 
 ## Dependências
 
@@ -73,5 +73,7 @@ Depende do registro de manutenção (`SPEC-008`) e do planejamento preventivo
 
 ## Verificação
 
-Testes de relógio controlado, idempotência, retry, falha permanente, privacidade de
-logs e confirmação de que somente o mock é usado por padrão.
+Implementado com geração idempotente, alertas próximos/atrasados, entregas mock,
+destinatário fictício e trilha de auditoria. Não há integração com provedor real.
+Testes automatizados não foram executados nesta entrega rápida; compilação,
+migração, build e OpenAPI foram verificados.

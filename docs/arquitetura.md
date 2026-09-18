@@ -1,10 +1,12 @@
 # Arquitetura da fundação
 
-Este documento descreve a base aprovada pela SPEC-001. Nesta etapa, somente a
-interface React, a API FastAPI, os endpoints de diagnóstico e a persistência
-PostgreSQL estão implementados. Identidade institucional, fluxos públicos e envio
-de e-mail pertencem a specs posteriores e aparecem no diagrama apenas como
-fronteiras previstas.
+Este documento descreve a base aprovada pela SPEC-001 e as extensões implementadas
+até a SPEC-013. A interface React, a API FastAPI, a persistência PostgreSQL,
+autenticação local, inventário, movimentação, comunicação pública, ocorrências,
+manutenções, planejamento, alertas, painel, relatórios e recomendações de falha
+estão implementados. O
+adaptador de identidade institucional e o envio de e-mail real continuam fora do
+escopo.
 
 ## Componentes e fronteiras de confiança
 
@@ -57,10 +59,13 @@ frontend.
 
 ## Contrato HTTP inicial
 
-O contrato versionado está em [`openapi.json`](openapi.json). Nesta fundação ele
-contém somente os diagnósticos `GET /api/health` e
-`GET /api/health/database`. Novas rotas devem ser adicionadas pelas respectivas
-specs, com testes de autorização e atualização do contrato.
+O contrato versionado está em [`openapi.json`](openapi.json). Ele contém os
+diagnósticos, as rotas de sessão e os contratos das SPEC-003 a SPEC-013. Cada
+rota protegida aplica autorização no servidor; o fluxo público é limitado ao
+formulário de comunicação e ao acompanhamento neutro. Alertas usam apenas o
+provedor mock, custos permanecem informativos sem aprovação ou pagamento, e a
+SPEC-013 usa baseline determinístico inicialmente desabilitado, com abstenção e
+supervisão humana.
 
 ## Configuração e segredos
 
@@ -74,6 +79,7 @@ specs, com testes de autorização e atualização do contrato.
 ## Rastreabilidade
 
 - Modelo conceitual: [`modelo-dados.md`](modelo-dados.md).
+- Matriz de autorização e sessão: [`matriz-autorizacao.md`](matriz-autorizacao.md).
 - Ameaças e controles: [`modelo-ameacas.md`](modelo-ameacas.md).
 - Decisões: [`adr/ADR-001-fundacao-tecnica.md`](adr/ADR-001-fundacao-tecnica.md).
 - Migração inicial: `inventario_backend/migrations/versions/20260915_0001_initial_schema.py`.

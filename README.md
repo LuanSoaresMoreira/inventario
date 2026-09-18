@@ -1,9 +1,9 @@
 # Equipe de agentes — Inventário institucional
 
-Este repositório contém a base do sistema institucional de inventário e manutenção,
-além da definição da equipe de agentes de IA. A API e o frontend ainda estão em
-fase inicial; regras patrimoniais, autenticação e integrações reais não foram
-implementadas.
+Este repositório contém o sistema institucional de inventário e manutenção, além
+da definição da equipe de agentes de IA. As SPEC-001 a SPEC-013 estão implementadas
+no backend FastAPI e frontend React; identidade institucional externa e e-mail real
+continuam fora do escopo.
 
 ## Stack definida
 
