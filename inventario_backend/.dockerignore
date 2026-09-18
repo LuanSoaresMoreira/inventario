@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-basetemp/
+.ruff_cache/
+tests/
+poetry.lock.bak
